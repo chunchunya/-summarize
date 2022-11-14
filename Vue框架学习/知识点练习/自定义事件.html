@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>自定义事件</title>
+</head>
+<body>
+    <div id="app">{{msg}}
+        <event-one @fathercom="getSon"></event-one>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.8/dist/vue.js"></script>
+    <script>
+        
+        Vue.component('event-one',{
+            props: {
+                name: String
+            },
+            template: `
+                <button @click="handleClick">触发自定义事件</button>
+            `,
+            data: function(){
+                return {}
+            },
+            methods: {
+                handleClick(){
+                    this.$emit('fathercom','123456')
+                }
+            }
+        })
+
+        var vm = new Vue({
+            el: '#app',
+            data: function(){
+                return {
+                    msg: '嗨嗨嗨'
+                }
+            },
+            methods:{
+                getSon(e){
+                    console.log(e);
+                    this.msg = e
+                }
+            }
+        })
+    </script>
+</body>
+</html>

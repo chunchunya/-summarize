@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>动态事件</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.8/dist/vue.js"></script>
+    <style>
+    
+    </style>
+</head>
+<body>
+    <div id="app">
+
+        <!-- 动态绑定事件 -->
+        <div class="mid"></div>
+        <div>
+                <button @[n.value]="doEvent(n.value)" v-for="(n,i) of eventList" :key="i">{{n.name}}</button>
+          </div>
+    </div>
+    
+    <script>
+        var vm = new Vue({
+            el:'#app',
+            data(){
+                return{
+                    msg: '你好啊！',
+                    eventList:[
+                    {
+                        name:'鼠标点击',
+                        value:'click'
+                    },
+                    {
+                        name:'鼠标移动到',
+                        value:'mouseover'
+                    },
+                    {
+                        name:'鼠标移动走',
+                        value:'mouseout'
+                    }
+                ]
+                }
+            },
+            methods:{
+                doEvent(func){
+                    this[func](func)
+                },
+                click:function(func){
+                    console.log(func)
+                },
+                mouseover:function(func){
+                    console.log(func)
+                },
+                mouseout:function(func){
+                    console.log(func)
+                }
+            
+            }
+
+        })
+    </script>
+</body>
+</html>

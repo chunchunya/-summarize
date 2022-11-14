@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>prop传值例子</title>
+</head>
+<body>
+    <div id="app">{{message}}
+        <div>
+            <!-- prop传入一个字符串/一个数字 -->
+            <com-one title="题目就是这个" :likes="111"></com-one>
+            <!-- prop传入一个布尔值  没有值默认true-->
+            <com-two is-published></com-two>
+            <!-- prop传入一个数组 -->
+            <com-three :comment-ids="[1,2,3,4,5]"></com-three>
+            <!-- prop传入一个对象 -->
+            <com-four :author="{
+                           name: 'zhangyuchun',
+                           age: 18
+                        }">
+            </com-four>
+            <!-- 传入一个对象的所有property 如果你想要将一个对象的所有 property 
+                都作为 prop 传入，你可以使用不带参数的 v-bind (取代 v-bind:prop-name)。
+                例如，对于一个给定的对象 post-->
+            <com-five v-bind="post"></com-five>
+        </div>
+         
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.8/dist/vue.js"></script>
+    <script>
+       Vue.component('com-one',{
+            props: {
+                title: String,
+                likes: Number,
+                isPublished: Boolean,
+                commentIds: Array,
+                author: Object,
+                callback: Function,
+                contactsPromise: Promise // or any other constructor
+            },
+            template: `
+                <div>{{title}}:{{likes}}</div>
+            `,
+            data: function(){
+                return{
+
+                }
+            },  
+        }) 
+
+        Vue.component('com-two',{
+            props: {
+                title: String,
+                likes: Number,
+                isPublished: Boolean,
+                commentIds: Array,
+                author: Object,
+                callback: Function,
+                contactsPromise: Promise // or any other constructor
+            },
+            template: `
+                <div>{{isPublished}}</div>
+            `,
+            data: function(){
+                return{
+
+                }
+            },  
+        }) 
+
+        Vue.component('com-three',{
+            props: {
+                title: String,
+                likes: Number,
+                isPublished: Boolean,
+                commentIds: Array,
+                author: Object,
+                callback: Function,
+                contactsPromise: Promise // or any other constructor
+            },
+            template: `
+                <div>{{commentIds[1]}}</div>
+            `,
+            data: function(){
+                return{
+
+                }
+            },  
+        }) 
+
+        Vue.component('com-four',{
+            props: {
+                title: String,
+                likes: Number,
+                isPublished: Boolean,
+                commentIds: Array,
+                author: Object,
+                callback: Function,
+                contactsPromise: Promise // or any other constructor
+            },
+            template: `
+                <div>{{author.name+author.age}}</div>
+            `,
+            data: function(){
+                return{
+
+                }
+            },  
+        }) 
+
+        Vue.component('com-five',{
+            props: {
+                id: Number,
+                title: String,
+                likes: Number,
+                isPublished: Boolean,
+                commentIds: Array,
+                author: Object,
+                callback: Function,
+                contactsPromise: Promise // or any other constructor
+            },
+            template: `
+            <div>
+                <div>{{id+title}}</div>
+            </div>
+            `,
+            data: function(){
+                return{
+
+                }
+            },  
+        }) 
+        var vm = new Vue({
+            el: '#app',
+            data: function(){
+                return {
+                    message: '你好啊！！',
+                    one: 'vue不简单呀',
+                    post: {
+                        id: 1,
+                        title: 'My Journey with Vue'
+                        }
+                }
+            }
+        })
+        
+        
+    </script>
+</body>
+</html>

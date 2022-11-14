@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let person = ['张鱼鱼','郑威威','樟醇醇','樟醇醇','郑薇薇','郑威威','鲤鱼','哇哇'];
+        let ss = [1,2,3,4,5,6]
+        ss.copyWithin(4,0,3);  //[1,2,3,4,1,2]
+        ss.copyWithin(0,2,3);  //[2,3,3,4,5,6]
+        console.log(ss);
+        ss.fill(1,0,3);   //[1,1,1,4,5,6]
+        console.log(ss);
+        let flats = [1,[2,3,[4,5,[6,7,[8,[9]]]]]];
+        console.log(flats.flat(5));      //[1,2,3,4,5,6,7,8,9]
+        console.log(flats.flat(4));      //[1,2,3,4,5,6,7,8,[9]]
+
+        let count = person.reduce((prev,cur)=>{
+            if(cur in prev) {
+                prev[cur]++;
+            }else{
+                prev[cur] = 1;
+            }
+            return prev;
+        },{})
+        console.log(count);
+        
+        // function makeCounter(){
+        //     function counter(){
+        //         return counter.count++;  //首先先获取值但是不会做增加操作
+        //     }
+        //     counter.count = 0;
+        //     return counter;
+        // }
+        // let counter = makeCounter();
+        // alert(counter());
+        // alert(counter());
+
+        var name = "The Window";
+        var object = {
+            name : "My Object",
+            getNameFunc : function(){
+                return function(){
+                    return this.name;
+                };
+            }
+         };
+         alert(object.getNameFunc()());   //输出The Window
+
+        var name = "The Window";
+        var object = {
+            name : "My Object",
+            getNameFunc : function(){
+                var that = this;
+                return function(){
+                    return that.name;
+                };
+            }
+        };
+        alert(object.getNameFunc()());   //输出My Object
+
+
+        const clone = (obj) => {
+            if (obj === null) return null;
+            const newObj = obj instanceof Array ? [] : {};
+            for (const key in obj) {
+                newObj[key] = obj[key];
+            }
+            return newObj;
+        };
+        const obj = { a: 1, b: "", c: { d: "asdf" } };
+        const newObj = clone(obj); // { a: 1, b: "", c: { d: "asdf" } }
+        console.log(newObj);
+    </script>
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>抽奖小程序</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.8/dist/vue.js"></script>
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <style>
+        #app{
+            height: 1000px;
+            background-image: url(../vue_demo/demo1/src/assets/抽奖.jpg);
+            background-size: cover;
+        }
+        .zonghe{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .title{
+            text-align: center;
+            color: brown;
+            font-size: 50px ;
+        }
+        .list{
+            width: 200px;
+            height: auto;
+            font-size:larger;
+            background-color: chartreuse;
+            margin: 0 auto;
+        }
+        .reset{
+            display: flex;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="app" img src="../vue_demo/demo1/src/assets/抽奖.jpg" alt="">
+        <!-- <div class="zonghe"> -->
+            
+            <div class="title">欢迎来到抽奖小程序，幸运儿是你吗？</div>
+            <br><br><br>
+            <div class="zonghe">
+                <button style="color: rgb(131, 3, 250); background-color: rgb(238, 102, 102); width: 300px; height: 40px; margin: 0 auto; font-size: larger;" type="submit" v-for="item in arr"  @click="getNum">{{item}}</button>
+            </div>
+            <br>
+            <li class="list" v-for="item in arrList">{{item}}</li>
+            <div class="reset"> 
+                <button style="color: rgb(3, 3, 3); background-color: rgb(245, 7, 7); width: 100px; font-size: larger;" @click="cancel">重置</button>
+            </div>
+            
+        <!-- </div> -->
+    </div>
+
+
+<script>
+    var vm = new Vue({
+        el:'#app',
+        data(){
+            return{
+              arr:["1","2","3","4","5","6"],
+              arrList:[],
+               
+            }
+        },
+        methods:{
+            getNum(e){
+                let s = parseInt(e.target.innerText)
+                console.log(s)
+                $.ajax({
+                    // url: 'http://10.2.35.12:8080//demo//lotteryUsers',
+                    url: 'http://10.2.35.47:8080/demo/draw',
+                    // url: 'http://10.1.177.178:8080/lottery',
+
+                    type: 'GET',     // 请求类型，常用的有 GET 和 POST
+                    data: {  
+                        // num: s        
+                        drawTimes: s
+                        // lotteryNum: s
+                    },
+                    success: (data) => { // 接口调用`成功回调函数
+                        this.arrList = data
+                        console.log(this.arrList)
+                    }
+});
+            },
+            cancel(e){
+                $.ajax({
+                    // url: 'http://10.2.35.12:8080//demo//reset',
+                    url: 'http://10.2.35.47:8080/demo/restore',
+                    type: 'GET',     // 请求类型，常用的有 GET 和 POST
+                    success: (data) => { // 接口调用`成功回调函数
+                        this.arrList = data
+                        console.log(this.arrList)
+                    }
+});
+            }
+        }
+    })
+</script>
+</body>
+</html>

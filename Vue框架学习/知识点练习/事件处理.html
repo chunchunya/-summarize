@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>事件处理</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.8/dist/vue.js"></script>
+    <style>
+        .out {
+            height: 80px;
+            width: auto;
+            background-color: blueviolet;
+        }
+        .mid{
+            height: 30px;
+            width: auto;
+            background-color: rgb(43, 226, 52);
+        }
+        .list{
+            width: 200px;
+            height: 200px;
+            background-color: rgb(226, 43, 43);
+            overflow: auto;
+        }
+        li{
+            height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div>{{msg}}</div>
+        <button type="submit" @click="Del">删除</button>
+        <!-- 内联语句处理器中访问原始DOM事件，可用特殊变量$event把它传入方法   就是占位-->
+        <button v-on:click="warn('Form cannot be submitted yet.', $event)">
+            Submit
+        </button>
+        <p>--------------------------------</p>
+        <!-- .prevent修饰符   阻止默认事件-->
+        <a href="http://www.baidu.com" @click.prevent="showInfo1">点我提示信息哦</a>
+        
+        
+        <p>--------------------------------</p>
+        <!-- .stop 阻止事件冒泡 -->
+        <div @click="showInfo2" class="out">
+            <div class="mid" @click.stop="showInfo2">
+                <button @click.stop="showInfo2">阻止事件冒泡</button>
+            </div>
+        </div>
+
+
+        <p>--------------------------------</p>
+        <!-- .once 事件只触发一次 -->
+        <button @click.once="showInfo2">事件只触发一次</button>
+
+
+        <p>--------------------------------</p>
+        <!-- .capture  使用事件的捕获模式 -->
+        <div @click.capture="showMsg(111)" class="out">
+            div1
+            <div class="mid" @click.capture="showMsg(222)">
+                div2
+                <button @click="showMsg(333)">事件的捕获模式</button>
+            </div>
+        </div>
+
+
+        <p>--------------------------------</p>
+        <!-- .self  只有event.target是当前操作的元素时才触发事件 -->
+        <div @click.self="showInfo3" class="out">
+            <div class="mid" @click.self="showInfo3">
+                <button @click="showInfo3">self的作用</button>
+            </div>
+        </div>
+
+
+        <p>--------------------------------</p>
+        <!-- .passive  事件的默认行为立即执行，无需等待事件回调执行完毕-->
+        <ul class="list" @wheel.passive="demo">
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+        </ul>
+        
+    </div>
+    
+    <script>
+        var vm = new Vue({
+            el:'#app',
+            data(){
+                return{
+                    msg: '你好啊！'  
+                }
+            },
+            methods:{
+                Del:function(event){
+                    alert("是否确认删掉") 
+                    this.msg='你看，被你删掉了吧！'
+                    console.log(event.target.tagName)
+                },
+                warn: function (message, event) {
+                    // 现在我们可以访问原生事件对象
+                    if (event) {
+                        console.log(event)
+                        var s = event.preventDefault()
+                        console.log(s)
+                    }
+                    alert(message)
+                },
+                showInfo1:function(event){
+                    // event.preventDefault()   //.prevent的作用如同.preventDefault()方法
+                    alert("能不跳转就不跳转")
+                },
+                showInfo2:function(e){
+                    // e.stopPropagation()    //.stop的作用如同.stopPropagation()方法
+                    alert("看看还冒泡不~")
+                },
+                showMsg:function(msg){
+                    console.log(msg)
+                },
+                showInfo3:function(e){
+                    // e.stopPropagation()    //.stop的作用如同.stopPropagation()方法
+                    console.log(e.target)
+                },
+                demo(){
+                    for(let i=0;i<100000;i++){
+                        console.log("&&")
+                    }
+                    console.log("滚动吧阿布")
+                }
+            }
+
+        })
+    </script>
+</body>
+</html>

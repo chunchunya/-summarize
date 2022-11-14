@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>抽奖小程序</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.8/dist/vue.js"></script>
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <!-- 引入组件库 -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <style>
+        #app{
+            height: 1000px;
+            background-image: url(../vue_demo/demo1/src/assets/抽奖.jpg);
+            background-size: cover;
+        }
+        .zonghe{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .title{
+            text-align: center;
+            color: brown;
+            font-size: 50px ;
+        }
+        .list{
+            width: 200px;
+            height: auto;
+            font-size:larger;
+            background-color: chartreuse;
+            margin: 0 auto;
+        }
+        .reset{
+            display: flex;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <el-button type="text" @click="dialogTableVisible = true; getMessage()">打开嵌套表格的 Dialog</el-button>
+
+        <el-dialog title="收货地址" :visible.sync="dialogTableVisible">
+        <el-table :data="gridData">
+            <el-table-column property="date" label="日期" width="150"></el-table-column>
+            <el-table-column property="name" label="姓名" width="200"></el-table-column>
+            <el-table-column property="address" label="地址"></el-table-column>
+        </el-table>
+        </el-dialog>
+
+    </div>
+
+
+<script>
+    var vm = new Vue({
+        el:'#app',
+        data(){
+            return{
+              arr:["1","2","3","4","5","6"],
+              arrList:[],
+              gridData: [{
+                date: '2016-05-02',
+                name: '王小虎',
+                address: '上海市普陀区金沙江路 1518 弄'
+                }, {
+                date: '2016-05-04',
+                name: '王小虎',
+                address: '上海市普陀区金沙江路 1518 弄'
+                }, {
+                date: '2016-05-01',
+                name: '王小虎',
+                address: '上海市普陀区金沙江路 1518 弄'
+                }, {
+                date: '2016-05-03',
+                name: '王小虎',
+                address: '上海市普陀区金沙江路 1518 弄'
+                }],
+            dialogTableVisible: false,
+               
+            }
+            
+        },
+        methods:{
+            getMessage(e){
+                console.log(e)
+            }
+            
+            }
+        }
+    )
+</script>
+</body>
+</html>

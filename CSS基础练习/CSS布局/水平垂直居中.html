@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+     .father{
+         /*width: 100px;*/
+         height:100px;
+         background: green;
+         display: flex;
+         /*justify-content: center;*/
+         /*align-items: center;*/
+     }
+
+     .son{
+         width: 50px;
+         height: 50px;
+         background: darkred;
+         margin: auto 0 ;
+         /*margin:auto;*/
+
+     }
+    </style>
+</head>
+<body>
+<!--垂直水平居中：方法一：给父元素添加flex布局  然后再给父元素添加 justify-content: center; align-items: center;  则父元素中的所有子元素都水平垂直居中 这样的缺点就是会使父元素中的所有子元素都会垂直水平居中-->
+<!--           方法二：给父元素添加flex布局  然后给父元素中想要垂直居中的子元素添加 margin:auto;-->
+    <div class="father">
+        <div class="son"></div>
+
+    </div>
+
+</body>
+</html>

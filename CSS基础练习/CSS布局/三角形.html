@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+    /*方法一*/
+    /*.rectangle{*/
+    /*    height: 0;*/
+    /*    width: 0;*/
+    /*    border:300px solid transparent;*/
+    /*    border-bottom-color: #64bd63;*/
+    /*}*/
+
+    /*!*方法二*!*/
+    /*.rectangle{*/
+    /*    height: 0;*/
+    /*    width: 0;*/
+    /*    border: 50px solid transparent;*/
+    /*    border-bottom-color: red;*/
+    /*    border-top: none;*/
+    /*}*/
+
+    /*利用左右边框高度与上边框不同，则不能形成一个完整的border，*/
+    .rectangle{
+        width: 0;
+        height: 0;
+        border-top: 30px solid red;
+        border-left: 20px solid transparent;
+        border-right: 20px solid transparent;
+    }
+
+
+</style>
+<body>
+    <div class="rectangle"></div>
+</body>
+</html>
